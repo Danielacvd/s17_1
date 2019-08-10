@@ -1,0 +1,261 @@
+1) Ejercicio numero 1 .... 
+ Creamos la database
+
+CREATE DATABASE ejercicio1;
+\c ejercicio1;
+
+Creamos las tablas, trabajadores, liquidaciones, departamentos.
+
+postgres=# CREATE TABLE trabajadores(
+postgres(# id SERIAL PRIMARY KEY,
+postgres(# name varchar(30),
+postgres(# last_name varchar(30)
+postgres(# );
+
+postgres=# CREATE TABLE liquidaciones(
+id SERIAL PRIMARY KEY,
+informacion TEXT,
+fecha date,
+trabajadores_id INTEGER,
+FOREIGN KEY (trabajadores_id) REFERENCES trabajadores (id));
+CREATE TABLE
+postgres=# select * from liquidaciones;
+ id | informacion | fecha | trabajadores_id 
+----+-------------+-------+-----------------
+(0 rows)
+
+postgres=# CREATE TABLE departamentos(
+postgres(# id SERIAL PRIMARY KEY,
+postgres(# department_name varchar(30),
+postgres(# trabajador_id INTEGER,
+postgres(# FOREIGN KEY (trabajador_id) REFERENCES trabajadores (id));
+CREATE TABLE
+postgres=# select * from departamentos;
+ id | department_name | trabajador_id 
+----+-----------------+---------------
+(0 rows)
+
+
+2) Ejercicio2
+
+CREATE DATABASE ejercicio2;
+\c ejercicio2;
+
+ejercicio2=# CREATE TABLE profesores(
+ejercicio2(# id SERIAL PRIMARY KEY,
+ejercicio2(# name varchar(30)
+ejercicio2(# );
+
+ejercicio2=# CREATE TABLE pruebas(
+ejercicio2(# id SERIAL PRIMARY KEY,
+ejercicio2(# materia varchar(30),
+profesor_id INTEGER,
+FOREIGN KEY (profesor_id) REFERENCES profesores (id),
+alumno_id INTEGER,
+FOREIGN KEY (alumno_id) REFERENCES alumnos (id) 
+ejercicio2(# );
+
+ejercicio2=# CREATE TABLE alumnos(
+ejercicio2(# id SERIAL PRIMARY KEY,
+ejercicio2(# name varchar(30),
+ejercicio2(# last_name varchar(30));
+
+ejercicio2=# CREATE TABLE cursos(
+id SERIAL PRIMARY KEY,
+materia varchar(30),
+profesor_id INTEGER,
+FOREIGN KEY (profesor_id) REFERENCES profesores (id),
+alumno_id INTEGER,
+FOREIGN KEY (alumno_id) REFERENCES alumnos (id) 
+);
+ejercicio2=# select * from cursos;
+ id | materia | profesor_id | alumno_id 
+----+---------+-------------+-----------
+(0 rows)
+
+ejercicio2=# ALTER TABLE cursos ADD COLUMN fecha date;
+ALTER TABLE
+ejercicio2=# ALTER TABLE cursos ADD COLUMN nota integer;
+ALTER TABLE
+ejercicio2=# select * from cursos;
+ id | materia | profesor_id | alumno_id | fecha | nota 
+----+---------+-------------+-----------+-------+------
+(0 rows)
+
+ejercicio2=# ALTER TABLE alumnos ADD CONSTRAINT cursos_id FOREIGN KEY (curso_id) 
+ejercicio2-# REFERENCES cursos (id);
+
+3) Ejercicio 3
+
+CREATE DATASE ejercicio3;
+\c ejercicio3
+
+ejercicio3=# CREATE TABLE partidos(
+ejercicio3(# id SERIAL PRIMARY KEY,
+ejercicio3(# nombre_partido varchar(30)
+ejercicio3(# );
+CREATE TABLE
+
+ejercicio3=# CREATE TABLE candidatos(
+ejercicio3(# id SERIAL PRIMARY KEY,
+ejercicio3(# nombre varchar(30),
+ejercicio3(# last_name varchar(30),
+ejercicio3(# partido_id INTEGER,
+ejercicio3(# FOREIGN KEY (partido_id) REFERENCES partidos (id));
+CREATE TABLE
+ejercicio3=# select * from candidatos;
+ id | nombre | last_name | partido_id 
+----+--------+-----------+------------
+(0 rows)
+
+ejercicio3=# CREATE TABLE mesas(
+ejercicio3(# id SERIAL PRIMARY KEY,
+ejercicio3(# mesa varchar(30)
+ejercicio3(# );
+CREATE TABLE
+ejercicio3=# select * from mesas;
+ id | mesa 
+----+------
+(0 rows)
+
+ejercicio3=# CREATE TABLE votos(
+ejercicio3(# lista varchar(30),
+ejercicio3(# candidato_id INTEGER,
+ejercicio3(# FOREIGN KEY (candidato_id) REFERENCES candidatos (id),
+ejercicio3(# mesa_id INTEGER,
+ejercicio3(# FOREIGN KEY (mesa_id) REFERENCES mesas (id)
+ejercicio3(# );
+CREATE TABLE
+ejercicio3=# select * from votos;
+ lista | candidato_id | mesa_id 
+-------+--------------+---------
+(0 rows)
+
+4) Ejercicio 4
+
+CREATE DATABASE ejercicio4;
+\c ejercicio4
+
+ejercicio4=# CREATE TABLE categorias(
+ejercicio4(# id SERIAL PRIMARY KEY,
+ejercicio4(# category varchar(30)
+ejercicio4(# );
+CREATE TABLE
+ejercicio4=# select * from categorias;
+ id | category 
+----+----------
+(0 rows)
+
+ejercicio4=# CREATE TABLE peliculas(
+ejercicio4(# id SERIAL PRIMARY KEY,
+ejercicio4(# nombre varchar(30),
+ejercicio4(# category_id INTEGER,
+ejercicio4(# FOREIGN KEY (category_id) REFERENCES categorias (id));
+CREATE TABLE
+
+ejercicio4=# CREATE TABLE tags(
+ejercicio4(# id SERIAL PRIMARY KEY,
+ejercicio4(# nombre varchar(30)
+ejercicio4(# );
+CREATE TABLE
+ejercicio4=# select * from tags;
+ id | nombre 
+----+--------
+(0 rows)
+
+ejercicio4=# CREATE TABLE pelitags(
+ejercicio4(# pelicula_id INTEGER,
+ejercicio4(# FOREIGN KEY (pelicula_id) REFERENCES peliculas (id),
+ejercicio4(# tag_id INTEGER,
+ejercicio4(# FOREIGN KEY (tag_id) REFERENCES tags (id));
+CREATE TABLE
+
+5) Ejercicio 5
+
+postgres=# CREATE DATABASE ejercicio5;
+CREATE DATABASE
+postgres=# \c ejercicio5
+
+ejercicio5=# CREATE TABLE clientes(
+ejercicio5(# id SERIAL PRIMARY KEY,
+ejercicio5(# name varchar(30)
+ejercicio5(# );
+CREATE TABLE
+ejercicio5=# select * from clientes;
+ id | name 
+----+------
+(0 rows)
+
+ejercicio5=# CREATE TABLE facturas(
+ejercicio5(# id SERIAL PRIMARY KEY,
+ejercicio5(# monto INTEGER,
+ejercicio5(# cliente_id INTEGER,
+ejercicio5(# FOREIGN KEY (cliente_id) REFERENCES clientes (id));
+CREATE TABLE
+ejercicio5=# select * from facturas;
+ id | monto | cliente_id 
+----+-------+------------
+(0 rows)
+
+ejercicio5=# CREATE TABLE bodegas(
+ejercicio5(# id SERIAL PRIMARY KEY,
+ejercicio5(# numero_bodega INTEGER,
+ejercicio5(# direccion_bodega varchar(30)
+ejercicio5(# );
+CREATE TABLE
+ejercicio5=# select * from bodegas;
+ id | numero_bodega | direccion_bodega 
+----+---------------+------------------
+(0 rows)
+
+ejercicio5=# CREATE TABLE productos(
+id SERIAL PRIMARY KEY,
+name varchar(30),
+costo INTEGER,
+bodega_id INTEGER,
+FOREIGN KEY (bodega_id) REFERENCES bodegas (id));
+CREATE TABLE
+ejercicio5=# select * from productos;
+ id | name | costo | bodega_id 
+----+------+-------+-----------
+(0 rows)
+
+
+ejercicio5=# CREATE TABLE compras(
+ejercicio5(# id SERIAL PRIMARY KEY,
+ejercicio5(# factura_id INTEGER,
+ejercicio5(# producto_id INTEGER,
+ejercicio5(# FOREIGN KEY (factura_id) REFERENCES facturas (id),
+ejercicio5(# FOREIGN KEY (producto_id) REFERENCES productos (id));
+CREATE TABLE
+ejercicio5=# select * from compras;
+ id | factura_id | producto_id 
+----+------------+-------------
+(0 rows)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
